@@ -1,15 +1,15 @@
 # Puerto Rico 99-Bus Synthetic Transmission Model
-
+ 
 A synthetic AC power flow model of the Puerto Rico 230-kV and 115-kV transmission system, built entirely from public data and distributed in MATPOWER format.
-
+ 
 This repository accompanies the paper:
-
+ 
 > S. Rivera-Ayala, S. A. Al Nahid, and J. Qi, "Developing a Power Flow Model for Puerto Rico Power Grid Resilience Analysis," submitted to the *IEEE PES General Meeting 2027*.
-
->This work was developed as part of the [POWER-UP REU for Undergraduate Research](https://www.sdstate.edu/mechanical-engineering/power-reu-undergraduate-research) at South Dakota State University, under the mentorship of Dr. Junjian Qi.
-
+ 
+This work was developed as part of the [POWER-UP REU for Undergraduate Research](https://www.sdstate.edu/mechanical-engineering/power-reu-undergraduate-research) at South Dakota State University, under the mentorship of Dr. Junjian Qi.
+ 
 ## Model summary
-
+ 
 | Component | Value |
 |---|---|
 | Buses | 99 (86 at 115 kV, 13 at 230 kV) |
@@ -20,60 +20,53 @@ This repository accompanies the paper:
 | Total load | 2,330.3 MW, 812.0 MVAr |
 | Swing bus | Bus 61 (Palo Seco), 1.0 p.u. |
 | System base | 100 MVA |
-
+ 
 The base-case power flow converges with 2,356.0 MW of generation and 25.69 MW of active losses.
-
+ 
 ## Repository contents
-
+ 
 | File | Description |
 |---|---|
 | `Puerto_Rico2.m` | MATPOWER case file (bus, branch, and generator data) |
+| `fig2_substation_coordinates.csv` | Latitude and longitude of each bus, with its MATPOWER bus number |
 | `gispowergrid230_115kv.geojson` | GIS layer of 230-kV and 115-kV lines and substations |
 | `lines_data_115_230.xlsx` | Line lengths and impedance calculations |
 | `Systhetic_Power_Data_for_Load_Buses.xlsx` | Load allocation from municipal demand to substation buses |
-
+ 
 ## Quick start
-
-Requires MATLAB and [MATPOWER](https://matpower.org/).
-
+ 
+Requires MATLAB and [MATPOWER](https://matpower.org/) [1].
+ 
 ```matlab
 mpc = loadcase('Puerto_Rico2');
 results = runpf(mpc);
 ```
-
+ 
 ## How the model was built
-
-**Buses.** Each bus corresponds to a 230-kV or 115-kV substation in the GIS data of the Puerto Rico geodata portal. Bus coordinates are taken from the GIS data and checked against the 2014 transmission center layer.
-
-**Lines.** Branches follow the GIS transmission-line layer, supplemented by OpenStreetMap where the GIS data have gaps. Line lengths are measured from the line geometries.
-
+ 
+**Buses.** Each bus corresponds to a 230-kV or 115-kV substation in the GIS data of the Puerto Rico geodata portal [2]. Bus coordinates are taken from the GIS data and checked against the 2014 transmission center layer [3].
+ 
+**Lines.** Branches follow the GIS transmission-line layer [2], supplemented by OpenStreetMap [4] where the GIS data have gaps. Line lengths are measured from the line geometries.
+ 
 | Line type | Conductor | Thermal limit |
 |---|---|---|
-| 230-kV overhead | 1192.5-kcmil ACSR Bunting | 450.2 MVA |
-| 115-kV overhead | 1192.5-kcmil ACSR Bunting | 225.1 MVA |
-| 115-kV underground (2 lines) | XLPE copper cable | 287.8 MVA |
-
+| 230-kV overhead | 1192.5-kcmil ACSR Bunting [5], [6] | 450.2 MVA |
+| 115-kV overhead | 1192.5-kcmil ACSR Bunting [5], [6] | 225.1 MVA |
+| 115-kV underground (2 lines) | XLPE copper cable [7], [8] | 287.8 MVA (ampacity from [9]) |
+ 
 **Transformers.** Four 230/115-kV transformers are modeled explicitly with assumed typical parameters (r = 0.0005 p.u., x = 0.01 p.u., 547 MVA). Substations with both 230-kV and 115-kV yards are represented by a single bus, so the transformation inside them is treated as ideal.
-
+ 
 **Generators.** The 15 generators are connected at the 115-kV or 230-kV buses of their power stations. All PV buses have a voltage setpoint of 1.0 p.u.
-
-**Loads.** Municipal demand comes from the 2021 PR100 data. Each municipality is assigned to the substations that serve it by tracing the 38-kV subtransmission lines in the GIS data. When N substations serve a municipality, its demand is split equally among them (weight 1/N). Reactive power assumes a power factor of about 0.95.
-
+ 
+**Loads.** Municipal demand comes from the 2021 [PR100 data](https://catalog.data.gov/dataset/pr100-puerto-rico-grid-resilience-and-transition-to-100-renewable-energy) [10]. Following part of the approach of Birchfield *et al.* [11], [12], the demand of each municipality is located at its centroid. Each municipality is assigned to the substations that serve it by tracing the 38-kV subtransmission lines in the GIS data [2]. When N substations serve a municipality, its demand is split equally among them (weight 1/N). Reactive power assumes a power factor of about 0.95.
+ 
 ## Assumptions and limitations
-
+ 
 - This is a **synthetic** model. It reproduces the structure of the real grid but is not the utility's network model.
+- For a larger public model that also includes the 38-kV network, see the 385-bus model of Anton and Ilić [13], [14], based on the MIT Lincoln Laboratory study [15].
 - Conductor, transformer, and dispatch data are not publicly available, so they are assumed as described above.
 - Line charging is small (3.7 MVAr in total).
 - Results should not be used for operational decisions.
-
-## Data sources
-
-- Puerto Rico Innovation and Technology Office (PRITO), *Infraestructuras de electricidad de Puerto Rico*, Portal de Geodatos del Gobierno de Puerto Rico. https://gis.pr.gov/descargaGeodatos/Infraestructuras/Pages/Electricidad.aspx
-- U.S. Department of Energy, *PR100: Puerto Rico Grid Resilience and Transitions to 100% Renewable Energy Study*, NREL, 2024.
-- Puerto Rico Energy Bureau, *PREPARE Dashboard*. https://dashboard.energia.pr.gov/Custom
-- LUMA Energy, material specifications 4752.205 (ACSR Bunting) and 4752.249 (115-kV underground cable).
-
-
 ## References
  
 [1] R. D. Zimmerman, C. E. Murillo-Sánchez, and R. J. Thomas, "MATPOWER: Steady-state operations, planning, and analysis tools for power systems research and education," *IEEE Trans. Power Syst.*, vol. 26, no. 1, pp. 12–19, Feb. 2011, doi: 10.1109/TPWRS.2010.2051168.
@@ -105,11 +98,11 @@ results = runpf(mpc);
 [14] L. L. Anton and M. D. Ilić, "Probabilistic deliverability assessment of distributed energy resources via scenario-based AC optimal power flow," *Energies*, vol. 18, no. 18, Art. no. 4832, Sep. 2025, doi: 10.3390/en18184832.
  
 [15] M. Ilić, R. Salcedo Ulerio, E. Corbett, E. Austin, M. Shatz, and E. Limpaecher, "A framework for evaluating electric power grid improvements in Puerto Rico," MIT Lincoln Laboratory, Lexington, MA, USA, Project Rep., Jul. 2019.
-
+ 
 ## Citation
-
+ 
 If you use this model, please cite the paper above. A BibTeX entry will be added once the paper is published.
-
+ 
 ## Acknowledgments
  
 This work was carried out through the [POWER-UP REU for Undergraduate Research](https://www.sdstate.edu/mechanical-engineering/power-reu-undergraduate-research) at South Dakota State University.
@@ -117,9 +110,9 @@ This work was carried out through the [POWER-UP REU for Undergraduate Research](
 - **Lead PI:** Dr. Jeffrey Doom, Mechanical Engineering
 - **Co-PI:** Dr. Jung-Han Kimn, Mathematics
 - **Research mentor:** Dr. Junjian Qi, Department of Electrical Engineering and Computer Science
-
 ## Contact
-
+ 
 - Sebastián Rivera-Ayala, Electrical and Computer Engineering, University of Puerto Rico at Mayagüez, sebastian.rivera50@upr.edu
 - Syed Abdullah Al Nahid, Electrical Engineering and Computer Science, South Dakota State University, syedabdullahal.nahid@jacks.sdstate.edu
 - Dr. Junjian Qi, Electrical Engineering and Computer Science, South Dakota State University, junjian.qi@sdstate.edu
+ 
