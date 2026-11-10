@@ -28,7 +28,6 @@ The base-case power flow converges with 2,356.0 MW of generation and 25.69 MW of
 | File | Description |
 |---|---|
 | `Puerto_Rico2.m` | MATPOWER case file (bus, branch, and generator data) |
-| `fig2_substation_coordinates.csv` | Latitude and longitude of each bus, with its MATPOWER bus number |
 | `gispowergrid230_115kv.geojson` | GIS layer of 230-kV and 115-kV lines and substations |
 | `lines_data_115_230.xlsx` | Line lengths and impedance calculations |
 | `Systhetic_Power_Data_for_Load_Buses.xlsx` | Load allocation from municipal demand to substation buses |
