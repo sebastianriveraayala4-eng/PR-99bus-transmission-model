@@ -1,6 +1,6 @@
 %%%%%% PF with defined trasformers and termal rates According to IEEE/NEPR
 
-function mpc = Puerto_Rico2 
+function mpc = Puerto_Rico2T 
 
 mpc.version = '2';
 mpc.baseMVA = 100;
@@ -36,7 +36,7 @@ mpc.bus = [
 	25   1    142.3154    46.7768     0   0   1    1.0000  0.0000  230     1    1.1   0.9; % COSTA SUR SP TC
 	26   1    71.9429     23.6465     0   0   1    1.0000  0.0000  115     1    1.1   0.9; % DORADO TC
 	27   1    19.1441     6.2924      0   0   1    1.0000  0.0000  115     1    1.1   0.9; % DUGUAO 2101
-	28   1    78.0000     82.180      0   0   1    1.0000  0.0000  115     1    1.1   0.9; % DUPONT1-PRIVATE (Carga Industrial Reincorporada)-------INDUSTRIAL
+	28   1    78.0000     25.637      0   0   1    1.0000  0.0000  115     1    1.1   0.9; % DUPONT1-PRIVATE (Carga Industrial Reincorporada)-------INDUSTRIAL
 	29   2    0.0000      0.0000      0   0   1    1.0000  0.0000  230     1    1.1   0.9; % ECOELECTRICA (Gas Natural/IPP - PV Reincorporado)
 	30   1    9.2493      3.0401      0   0   1    1.0000  0.0000  115     1    1.1   0.9; % ENCANTADA
 	31   2    0.0000      0.0000      0   0   1    1.0000  0.0000  115     1    1.1   0.9; % CENTRAL AGUIRRE
@@ -146,10 +146,10 @@ qgen = sum(mpc.gen(:,3))
 mpc.branch = [
 %  fbus  tbus  r         x          b_total_pu   rateA   rateB rateC tap   shift status angmin angmax
 %%%% Transformers Systems
-22    21    0.000500    0.010000    0.00000000   547     0     1     1.0   0     1      -360   360; % TRAFO 230/115 kV: COMPLEJO DE AGUIRRE
-25    24    0.000500    0.010000    0.00000000   547     0     1     1.0   0     1      -360   360; % TRAFO 230/115 kV: COSTA SUR
-5     56    0.000500    0.010000    0.00000000   547     0     1     1.0   0     1      -360   360; % TRAFO 230/115 kV: BAYAMON TC -> MONACILLOS TC
-1     56    0.000500    0.010000    0.00000000   547     0     1     1.0   0     1      -360   360; % TRAFO 230/115 kV: AGUAS BUENAS -> MONACILLOS TC
+22    21    0.002280    0.079970    0.00000000   547     0     1     1.0   0     1      -360   360; % TRAFO 230/115 kV: COMPLEJO DE AGUIRRE [typical parameters]
+25    24    0.002280    0.079970    0.00000000   547     0     1     1.0   0     1      -360   360; % TRAFO 230/115 kV: COSTA SUR [typical parameters]
+5     56    0.002280    0.079970    0.00000000   547     0     1     1.0   0     1      -360   360; % TRAFO 230/115 kV: BAYAMON TC -> MONACILLOS TC [typical parameters]
+1     56    0.002280    0.079970    0.00000000   547     0     1     1.0   0     1      -360   360; % TRAFO 230/115 kV: AGUAS BUENAS -> MONACILLOS TC [typical parameters]
 
 %%%% Transmission Lines
 23    84    0.000018    0.000072    0.00538775   225.08  0     0     0     0     1      -360   360; % CONQUISTADOR 1204 -- TAP141784
@@ -164,27 +164,27 @@ mpc.branch = [
 4     63    0.000104    0.000408    0.00070204   225.08  0     0     0     0     1      -360   360; % BARCELONETA TC -- PFIZER 1
 4     80    0.000153    0.000598    0.00250706   225.08  0     0     0     0     1      -360   360; % BARCELONETA TC -- TAP141471
 92    86    0.000294    0.001153    0.00223194   225.08  0     0     0     0     1      -360   360; % YABUCOA -- TAP161417
-55    2     0.000334    0.001307    0.00054415   225.08  0     0     0     0     1      -360   360; % MAYAGUEZ TC -- ALTURAS DE MAYAGUEZ
+55    2     0.002614    0.081277    0.00054415   225.08  0     0     0     0     1      -360   360; % MAYAGUEZ TC -- ALTURAS DE MAYAGUEZ [+ typical 230/115-kV transformer impedance in series]
 68    24    0.000720    0.002822    0.00051874   225.08  0     0     0     0     1      -360   360; % PRIVATE OIL COMPANY -- COSTA SUR
 58    81    0.000190    0.000746    0.00165229   450.00  0     0     0     0     1      -360   360; % MORA TC -- TAP141491 (230 kV)
-62    73    0.000801    0.003141    0.00038934   225.08  0     0     0     0     1      -360   360; % PARQUE ESCORIAL -- SABANA LLANA TC
+62    73    0.003081    0.083111    0.00038934   225.08  0     0     0     0     1      -360   360; % PARQUE ESCORIAL -- SABANA LLANA TC [+ typical 230/115-kV transformer impedance in series]
 54    2     0.001015    0.003979    0.00026558   225.08  0     0     0     0     1      -360   360; % MAYAGUEZ -- ALTURAS DE MAYAGUEZ
 38    52    0.001089    0.004269    0.00105287   225.08  0     0     0     0     1      -360   360; % HATO REY TC -- MARTIN PENA
 30    84    0.001135    0.004448    0.00062009   225.08  0     0     0     0     1      -360   360; % ENCANTADA -- TAP141784
-54    55    0.001186    0.004649    0.00059919   225.08  0     0     0     0     1      -360   360; % MAYAGUEZ -- MAYAGUEZ TC
+54    55    0.003466    0.084619    0.00059919   225.08  0     0     0     0     1      -360   360; % MAYAGUEZ -- MAYAGUEZ TC [+ typical 230/115-kV transformer impedance in series]
 6     62    0.001334    0.005227    0.00013783   225.08  0     0     0     0     1      -360   360; % BERWIND TC -- PARQUE ESCORIAL
 24    69    0.001381    0.005411    0.00012153   225.08  0     0     0     0     1      -360   360; % COSTA SUR PLANT -- SANCHEZ VILELLA
 24    69    0.001388    0.005438    0.00005629   225.08  0     0     0     0     1      -360   360; % COSTA SUR PLANT -- SANCHEZ VILELLA
-9     10    0.001415    0.005544    0.00021305   225.08  0     0     0     0     1      -360   360; % CAMBALACHE GP TC -- CAMBALACHE TC
+9     10    0.003695    0.085514    0.00021305   225.08  0     0     0     0     1      -360   360; % CAMBALACHE GP TC -- CAMBALACHE TC [+ typical 230/115-kV transformer impedance in series]
 90    38    0.001442    0.005651    0.00005058   225.08  0     0     0     0     1      -360   360; % VIADUCTO TC -- HATO REY TC
 50    56    0.001472    0.005770    0.00003993   225.08  0     0     0     0     1      -360   360; % LAS LOMAS -- MONACILLOS TC
 12    83    0.001568    0.006144    0.00003721   225.08  0     0     0     0     1      -360   360; % CANAS TC -- TAP141594
-5     71    0.001572    0.006162    0.00003572   225.08  0     0     0     0     1      -360   360; % BAYAMON -- RIO BAYAMON DEV
-51    28    0.001599    0.006267    0.00003417   225.08  0     0     0     0     1      -360   360; % MANATI 8404 -- DUPONT1
-1     79    0.001736    0.006804    0.00003039   225.08  0     0     0     0     1      -360   360; % AGUAS BUENAS -- SUB SAN JOSE
+5     71    0.003852    0.086132    0.00003572   225.08  0     0     0     0     1      -360   360; % BAYAMON -- RIO BAYAMON DEV [+ typical 230/115-kV transformer impedance in series]
+51    28    0.003879    0.086237    0.00003417   225.08  0     0     0     0     1      -360   360; % MANATI 8404 -- DUPONT1 [+ typical 230/115-kV transformer impedance in series]
+1     79    0.004016    0.086774    0.00003039   225.08  0     0     0     0     1      -360   360; % AGUAS BUENAS -- SUB SAN JOSE [+ typical 230/115-kV transformer impedance in series]
 25    29    0.000477    0.001868    0.00002936   450.00  0     0     0     0     1      -360   360; % COSTA SUR SP -- ECOELECTRICA (230 kV)
-93    42    0.002009    0.007873    0.00002921   225.08  0     0     0     0     1      -360   360; % YABUCOA TC -- HUMACAO TC
-93    42    0.002016    0.007901    0.00002865   225.08  0     0     0     0     1      -360   360; % YABUCOA TC -- HUMACAO TC
+93    42    0.004289    0.087843    0.00002921   225.08  0     0     0     0     1      -360   360; % YABUCOA TC -- HUMACAO TC [+ typical 230/115-kV transformer impedance in series]
+93    42    0.004296    0.087871    0.00002865   225.08  0     0     0     0     1      -360   360; % YABUCOA TC -- HUMACAO TC [+ typical 230/115-kV transformer impedance in series]
 67    83    0.002033    0.007966    0.00002811   225.08  0     0     0     0     1      -360   360; % PONCE TC -- TAP141594
 26    13    0.002074    0.008129    0.00002753   225.08  0     0     0     0     1      -360   360; % DORADO TC -- CANDELARIA ARENAS
 8     79    0.002133    0.008357    0.00002585   225.08  0     0     0     0     1      -360   360; % CAGUAS TC -- SUB SAN JOSE
@@ -197,7 +197,7 @@ mpc.branch = [
 59    88    0.002587    0.010140    0.00001994   225.08  0     0     0     0     1      -360   360; % MOROVIS 8801 -- UNIBON
 15    40    0.002621    0.010273    0.00001954   225.08  0     0     0     0     1      -360   360; % CAONILLAS -- DOS BOCAS
 56    85    0.002632    0.010315    0.00001901   225.08  0     0     0     0     1      -360   360; % MONACILLOS TC -- TAP141786
-5     34    0.002672    0.010473    0.00001899   225.08  0     0     0     0     1      -360   360; % BAYAMON -- GRANA
+5     34    0.004952    0.090443    0.00001899   225.08  0     0     0     0     1      -360   360; % BAYAMON -- GRANA [+ typical 230/115-kV transformer impedance in series]
 17    38    0.002694    0.010558    0.00001742   225.08  0     0     0     0     1      -360   360; % CENTRAL SAN JUAN -- HATO REY TC
 17    38    0.002698    0.010573    0.00001709   225.08  0     0     0     0     1      -360   360; % CENTRAL SAN JUAN -- HATO REY TC
 40    82    0.002762    0.010826    0.00001690   225.08  0     0     0     0     1      -360   360; % DOS BOCAS -- TAP141502
@@ -208,23 +208,23 @@ mpc.branch = [
 71    56    0.003402    0.013333    0.00001540   225.08  0     0     0     0     1      -360   360; % RIO BAYAMON DEV -- MONACILLOS TC
 18    59    0.003436    0.013465    0.00001517   225.08  0     0     0     0     1      -360   360; % CIALES -- MOROVIS
 6     52    0.003451    0.013523    0.00001505   225.08  0     0     0     0     1      -360   360; % BERWIND TC -- MARTIN PENA
-30    73    0.003583    0.014040    0.00001502   225.08  0     0     0     0     1      -360   360; % ENCANTADA -- SABANA LLANA TC
-51    89    0.003624    0.014204    0.00001467   225.08  0     0     0     0     1      -360   360; % MANATI 8404 -- VEGA BAJA TC
-61    5     0.003641    0.014270    0.00001464   225.08  0     0     0     0     1      -360   360; % PALO SECO -- BAYAMON
-93    92    0.003655    0.014322    0.00001455   225.08  0     0     0     0     1      -360   360; % YABUCOA TC -- YABUCOA
+30    73    0.005863    0.094010    0.00001502   225.08  0     0     0     0     1      -360   360; % ENCANTADA -- SABANA LLANA TC [+ typical 230/115-kV transformer impedance in series]
+51    89    0.005904    0.094174    0.00001467   225.08  0     0     0     0     1      -360   360; % MANATI 8404 -- VEGA BAJA TC [+ typical 230/115-kV transformer impedance in series]
+61    5     0.005921    0.094240    0.00001464   225.08  0     0     0     0     1      -360   360; % PALO SECO -- BAYAMON [+ typical 230/115-kV transformer impedance in series]
+93    92    0.005935    0.094292    0.00001455   225.08  0     0     0     0     1      -360   360; % YABUCOA TC -- YABUCOA [+ typical 230/115-kV transformer impedance in series]
 56    84    0.003677    0.014411    0.00001429   225.08  0     0     0     0     1      -360   360; % MONACILLOS TC -- TAP141784
-61    5     0.003735    0.014636    0.00001393   225.08  0     0     0     0     1      -360   360; % PALO SECO -- BAYAMON
-61    5     0.003754    0.014713    0.00001243   225.08  0     0     0     0     1      -360   360; % PALO SECO -- BAYAMON
+61    5     0.006015    0.094606    0.00001393   225.08  0     0     0     0     1      -360   360; % PALO SECO -- BAYAMON [+ typical 230/115-kV transformer impedance in series]
+61    5     0.006034    0.094683    0.00001243   225.08  0     0     0     0     1      -360   360; % PALO SECO -- BAYAMON [+ typical 230/115-kV transformer impedance in series]
 70    85    0.003821    0.014976    0.00001191   225.08  0     0     0     0     1      -360   360; % QUEBRADA NEGRITO -- TAP141786
-55    3     0.003827    0.014998    0.00001180   225.08  0     0     0     0     1      -360   360; % MAYAGUEZ TC -- ANASCO TC
+55    3     0.006107    0.094968    0.00001180   225.08  0     0     0     0     1      -360   360; % MAYAGUEZ TC -- ANASCO TC [+ typical 230/115-kV transformer impedance in series]
 17    56    0.003831    0.015012    0.00001175   225.08  0     0     0     0     1      -360   360; % CENTRAL SAN JUAN -- MONACILLOS TC
 56    7     0.003912    0.015329    0.00001131   225.08  0     0     0     0     1      -360   360; % MONACILLOS TC -- BUEN PASTOR
 57    66    0.003954    0.015497    0.00001118   225.08  0     0     0     0     1      -360   360; % MONTERREY -- PINAS
 49    16    0.004345    0.017029    0.00001113   225.08  0     0     0     0     1      -360   360; % LAS CRUCES -- CAYEY TC
-5     17    0.004619    0.018103    0.00001109   225.08  0     0     0     0     1      -360   360; % BAYAMON -- CENTRAL SAN JUAN
-5     13    0.004705    0.018437    0.00001102   225.08  0     0     0     0     1      -360   360; % BAYAMON -- CANDELARIA ARENAS
+5     17    0.006899    0.098073    0.00001109   225.08  0     0     0     0     1      -360   360; % BAYAMON -- CENTRAL SAN JUAN [+ typical 230/115-kV transformer impedance in series]
+5     13    0.006985    0.098407    0.00001102   225.08  0     0     0     0     1      -360   360; % BAYAMON -- CANDELARIA ARENAS [+ typical 230/115-kV transformer impedance in series]
 39    13    0.001603    0.006283    0.00001085   225.08  0     0     0     0     1      -360   360; % HATO TEJA TC -- CANDELARIA ARENAS
-39    5     0.000895    0.003509    0.00001080   225.08  0     0     0     0     1      -360   360; % HATO TEJA TC -- BAYAMON
+39    5     0.003175    0.083479    0.00001080   225.08  0     0     0     0     1      -360   360; % HATO TEJA TC -- BAYAMON [+ typical 230/115-kV transformer impedance in series]
 8     7     0.005157    0.020212    0.00001061   225.08  0     0     0     0     1      -360   360; % CAGUAS TC -- BUEN PASTOR
 10    37    0.005183    0.020311    0.00001059   225.08  0     0     0     0     1      -360   360; % CAMBALACHE TC -- HATILLO TC
 49    8     0.005429    0.021276    0.00001058   225.08  0     0     0     0     1      -360   360; % LAS CRUCES -- CAGUAS TC
@@ -232,19 +232,19 @@ mpc.branch = [
 26    66    0.005713    0.022390    0.00001025   225.08  0     0     0     0     1      -360   360; % DORADO TC -- PINAS
 3     91    0.006005    0.023535    0.00000933   225.08  0     0     0     0     1      -360   360; % ANASCO TC -- VICTORIA TC
 46    67    0.006025    0.023611    0.00000877   225.08  0     0     0     0     1      -360   360; % JUANA DIAZ TC -- PONCE TC
-20    1     0.006411    0.025125    0.00000862   225.08  0     0     0     0     1      -360   360; % COMERIO TC -- AGUAS BUENAS TC
+20    1     0.008691    0.105095    0.00000862   225.08  0     0     0     0     1      -360   360; % COMERIO TC -- AGUAS BUENAS TC [+ typical 230/115-kV transformer impedance in series]
 87    46    0.006446    0.025263    0.00000786   225.08  0     0     0     0     1      -360   360; % TORO NEGRO -- JUANA DIAZ TC
 12    24    0.006510    0.025511    0.00000782   225.08  0     0     0     0     1      -360   360; % CANAS TC -- COSTA SUR
 27    72    0.006527    0.025579    0.00000747   225.08  0     0     0     0     1      -360   360; % DUGUAO -- RIO BLANCO
-83    25    0.006588    0.025819    0.00000740   225.08  0     0     0     0     1      -360   360; % TAP141594 -- COSTA SUR SP TC
-51    4     0.006822    0.026734    0.00000709   225.08  0     0     0     0     1      -360   360; % MANATI 8404 -- BARCELONETA TC
+83    25    0.008868    0.105789    0.00000740   225.08  0     0     0     0     1      -360   360; % TAP141594 -- COSTA SUR SP TC [+ typical 230/115-kV transformer impedance in series]
+51    4     0.009102    0.106704    0.00000709   225.08  0     0     0     0     1      -360   360; % MANATI 8404 -- BARCELONETA TC [+ typical 230/115-kV transformer impedance in series]
 26    89    0.007037    0.027577    0.00000675   225.08  0     0     0     0     1      -360   360; % DORADO TC -- VEGA BAJA TC
 40    10    0.007139    0.027976    0.00000673   225.08  0     0     0     0     1      -360   360; % DOS BOCAS -- CAMBALACHE TC
-1     56    0.007364    0.028860    0.00000632   225.08  0     0     0     0     1      -360   360; % AGUAS BUENAS TC -- MONACILLOS TC
+1     56    0.009644    0.108830    0.00000632   225.08  0     0     0     0     1      -360   360; % AGUAS BUENAS TC -- MONACILLOS TC [+ typical 230/115-kV transformer impedance in series]
 42    72    0.007469    0.029269    0.00000629   225.08  0     0     0     0     1      -360   360; % HUMACAO TC -- RIO BLANCO
-73    14    0.007489    0.029350    0.00000623   225.08  0     0     0     0     1      -360   360; % SABANA LLANA TC -- CANOVANAS TC
-58    91    0.007500    0.029390    0.00000621   225.08  0     0     0     0     1      -360   360; % MORA TC -- VICTORIA TC
-73    14    0.007513    0.029441    0.00000615   225.08  0     0     0     0     1      -360   360; % SABANA LLANA TC -- CANOVANAS TC
+73    14    0.009769    0.109320    0.00000623   225.08  0     0     0     0     1      -360   360; % SABANA LLANA TC -- CANOVANAS TC [+ typical 230/115-kV transformer impedance in series]
+58    91    0.009780    0.109360    0.00000621   225.08  0     0     0     0     1      -360   360; % MORA TC -- VICTORIA TC [+ typical 230/115-kV transformer impedance in series]
+73    14    0.009793    0.109411    0.00000615   225.08  0     0     0     0     1      -360   360; % SABANA LLANA TC -- CANOVANAS TC [+ typical 230/115-kV transformer impedance in series]
 32    60    0.007518    0.029463    0.00000594   225.08  0     0     0     0     1      -360   360; % FAJARDO TC -- PALMER TC
 42    47    0.007633    0.029912    0.00000576   225.08  0     0     0     0     1      -360   360; % HUMACAO TC -- JUNCOS TC
 10    4     0.007651    0.029982    0.00000568   225.08  0     0     0     0     1      -360   360; % CAMBALACHE TC -- BARCELONETA TC
@@ -259,7 +259,7 @@ mpc.branch = [
 5     1     0.002397    0.009392    0.00000509   450.00  0     0     0     0     1      -360   360; % BAYAMON -- AGUAS BUENAS (230 kV)
 22    19    0.002463    0.009650    0.00000485   450.00  0     0     0     0     1      -360   360; % AGUIRRE 230 -- AES (230 kV)
 21    77    0.010170    0.039855    0.00000479   225.08  0     0     0     0     1      -360   360; % AGUIRRE 115 -- SANTA ISABEL TC
-55    75    0.010203    0.039985    0.00000476   225.08  0     0     0     0     1      -360   360; % MAYAGUEZ TC -- SAN SEBASTIAN TC
+55    75    0.012483    0.119955    0.00000476   225.08  0     0     0     0     1      -360   360; % MAYAGUEZ TC -- SAN SEBASTIAN TC [+ typical 230/115-kV transformer impedance in series]
 74    35    0.010391    0.040722    0.00000472   225.08  0     0     0     0     1      -360   360; % SAN GERMAN TC -- GUANICA TC
 54    48    0.010841    0.042485    0.00000469   225.08  0     0     0     0     1      -360   360; % MAYAGUEZ -- LAS ACACIAS
 70    47    0.010865    0.042578    0.00000469   225.08  0     0     0     0     1      -360   360; % QUEBRADA NEGRITO -- JUNCOS TC
@@ -289,9 +289,12 @@ mpc.branch = [
 98    67    0.011006    0.043131    0.00000770   225.08  0     0     0     0     1      -360   360; % SANTA ISABEL WIND SUB -- PONCE TC
 98    77    0.002025    0.007935    0.00000681   225.08  0     0     0     0     1      -360   360; % SANTA ISABEL WIND SUB -- SANTA ISABEL TC
 96    98    0.001022    0.004003    0.00000633   225.08  0     0     0     0     1      -360   360; % SANTA ISABEL WIND SUB -- WIND FARM
-95    58    0.000784    0.003074    0.00000615   225.08  0     0     0     0     1      -360   360; % ORIANA -- MORA TC
+95    58    0.003064    0.083044    0.00000615   225.08  0     0     0     0     1      -360   360; % ORIANA -- MORA TC [+ typical 230/115-kV transformer impedance in series]
 99    27    0.002430    0.009526    0.00000564   225.08  0     0     0     0     1      -360   360; % NAGUABO WIND -- DUGUAU TC
 ];
+
+
+
 
 
 
