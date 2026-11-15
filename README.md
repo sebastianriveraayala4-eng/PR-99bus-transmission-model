@@ -5,7 +5,7 @@ entirely from public data and distributed in MATPOWER format.
 
 This repository accompanies the paper:
 
-> S. Rivera-Ayala, S. A. Al Nahid, and J. Qi, "Developing a Power Flow Model for Puerto Rico Power Grid Resilience Analysis," submitted to the * IEEE Texas Power and Energy Conference (TPEC) 2027*.
+> S. Rivera-Ayala, S. A. Al Nahid, and J. Qi, "Developing a Power Flow Model for Puerto Rico Power Grid Resilience Analysis," submitted to the *IEEE Texas Power and Energy Conference (TPEC) 2027*.
 
 This work was developed as part of the [POWER-UP REU for Undergraduate Research](https://www.sdstate.edu/mechanical-engineering/power-reu-undergraduate-research) at South Dakota State University, under the mentorship of Dr. Junjian Qi.
 
